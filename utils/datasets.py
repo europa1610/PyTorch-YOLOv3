@@ -105,6 +105,8 @@ class ListDataset(Dataset):
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore")
                 boxes = np.loadtxt(label_path).reshape(-1, 5)
+                #print(label_path)
+                #print(boxes)
         except Exception as e:
             print(f"Could not read label '{label_path}'.")
             return
@@ -139,7 +141,13 @@ class ListDataset(Dataset):
         # Add sample index to targets
         for i, boxes in enumerate(bb_targets):
             boxes[:, 0] = i
+        print('(-------')
+#        print(len(bb_targets))
         bb_targets = torch.cat(bb_targets, 0)
+#        print(len(bb_targets))
+        print(paths)
+        print(bb_targets.size())
+        print('-------)')
         
         return paths, imgs, bb_targets
 
